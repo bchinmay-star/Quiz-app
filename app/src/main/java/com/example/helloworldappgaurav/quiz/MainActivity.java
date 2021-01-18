@@ -1,4 +1,4 @@
-package com.example.helloworldappgaurav.quiz;
+package com.example.helloworld.quiztruefalseapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.helloworldappgaurav.quiz.controller.CardStackAdapter;
+import com.example.helloworld.quiztruefalseapp.controller.CardStackAdapter;
+import com.example.helloworldappgaurav.quiz.VolleySingleton;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
 
@@ -18,37 +19,37 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import javax.xml.transform.ErrorListener;
+
 public class MainActivity extends AppCompatActivity {
 
-    private RequestQueue mRequestQueue; // added volley singleton
-    private  String url;
+    private RequestQueue mRequestQueue;
+    private String url;
     private CardStackView mCardStackView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mCardStackView = findViewById(R.id.myCardStackView); // first line to add after importing CardStackView
-        mCardStackView.setLayoutManager(new CardStackLayoutManager(this)); //from github setup
+        mCardStackView=findViewById(R.id.myCardStackView);
+        mCardStackView.setLayoutManager(new CardStackLayoutManager(this));
 
-        ArrayList<String> testFilms = new ArrayList<>();
+        ArrayList<String> testFilms=new ArrayList<>();
         testFilms.add("Matrix");
-        testFilms.add("On Golden Pond");
-        testFilms.add("At CLose Range");
+        testFilms.add("On Golden pond");
+        testFilms.add("At close range");
         testFilms.add("The pledge");
-        testFilms.add("Basketball Diaries");
+        testFilms.add("Basketball diaries");
 
-        mCardStackView.setAdapter(new CardStackAdapter(this,testFilms)); //initially red becuase you don't have an adapter yet
+        mCardStackView.setAdapter(new CardStackAdapter(this, testFilms));
 
-        url = "https://opentdb.com/api.php?amount=10&type=boolean";
-        mRequestQueue = VolleySingleton.getInstance().getRequestQueue(); //first volley statement for inside
-
-        //Created a Object and not array request because at the root level you have an object not an array
-        JsonObjectRequest filmsJsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        mRequestQueue= VolleySingleton.getInstance().getRequestQueue();
+        url="https://opentdb.com/api.php?amount=10&category=23&difficulty=medium&type=boolean";
+        JsonObjectRequest filmJsonObjectRequest= new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
-                Log.i("FILMS","This is successful"+response);
+                Log.i("myTag", response+"");
             }
         }, new Response.ErrorListener() {
             @Override
@@ -57,6 +58,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mRequestQueue.add(filmsJsonObjectRequest);
+        mRequestQueue.add(filmJsonObjectRequest);
     }
 }
