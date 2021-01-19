@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Quiz</string>
+
+    <string-array name="planets_array">
+        <item>General Knowledge</item>
+        <item>Mythology</item>
+        <item>Sports</item>
+        <item>Geography</item>
+        <item>Politics</item>
+        <item>History</item>
+        <item>Art</item>
+        <item>Celebrities</item>
+    </string-array>
 </resources>

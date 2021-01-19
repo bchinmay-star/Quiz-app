@@ -9,9 +9,14 @@
     android:gravity="center"
     android:background="#c6ebc9">
 
+    <Spinner
+        android:id="@+id/planets_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/myCardStackView"
-        android:layout_width="200dp"
-        android:layout_height="500dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

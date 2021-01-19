@@ -1,4 +1,4 @@
-package com.example.helloworld.quiztruefalseapp.controller;
+package com.example.helloworldappgaurav.quiz.controller;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,46 +8,55 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.helloworld.quiztruefalseapp.R;
-import com.example.helloworld.quiztruefalseapp.view.FilmViewHolder;
+import com.example.helloworldappgaurav.quiz.R;
+import com.example.helloworldappgaurav.quiz.view.FilmViewHolder;
 
 import java.util.List;
+
+import model.QuizQuestion;
 
 public class CardStackAdapter extends RecyclerView.Adapter<FilmViewHolder> {
 
     private Context mContext;
-    private List<String> mFilmNames;
+    private List<QuizQuestion> mFilmQuestions;
     private LayoutInflater mLayoutInflator;
 
 
-    public CardStackAdapter(Context mContext, List<String> mFilmNames) {
-        this.mContext = mContext;
-        this.mFilmNames = mFilmNames;
-        mLayoutInflator=LayoutInflater.from(mContext);
+    public CardStackAdapter(Context context, List<QuizQuestion> filmQuestions) {
+        mContext = context;
+        mFilmQuestions = filmQuestions;
+        mLayoutInflator = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public FilmViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=mLayoutInflator.inflate(R.layout.film_view, parent, false);
+        View view = mLayoutInflator.inflate(R.layout.film_view, parent, false);
         return new FilmViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FilmViewHolder holder, int position) {
-        holder.getTxtFilmQuestion().setText(mFilmNames.get(position));
+        holder.getTxtFilmQuestion().setText(mFilmQuestions.get(position).getQuestionText());
         holder.getImgButtonTrue().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "True is tapped", Toast.LENGTH_SHORT).show();
+                if(mFilmQuestions.get(position).isTrueAnswer()){
+                    Toast.makeText(mContext, "Congratulations! You have correctly answered the question.", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(mContext, "Sorry, your answer is incorrect.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         holder.getImgButtonFalse().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "False is tapped", Toast.LENGTH_SHORT).show();
+                if(mFilmQuestions.get(position).isTrueAnswer()){
+                    Toast.makeText(mContext, "Sorry, your answer is incorrect. Try again!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(mContext, "Congratulations! You have correctly answered the question.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -56,6 +65,6 @@ public class CardStackAdapter extends RecyclerView.Adapter<FilmViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mFilmNames.size();
+        return mFilmQuestions.size();
     }
 }
