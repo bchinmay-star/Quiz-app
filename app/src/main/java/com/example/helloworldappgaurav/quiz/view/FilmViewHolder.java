@@ -36,8 +36,4 @@ public class FilmViewHolder extends RecyclerView.ViewHolder {
     public ImageButton getImgButtonFalse() {
         return imgButtonFalse;
     }
-
-    public ImageView getIitjImage() {
-        return iitjImage;
-    }
 }
